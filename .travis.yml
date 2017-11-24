@@ -1,4 +1,5 @@
 language: dart
+sudo: true
 dist: precise
 dart:
   - 1.24.2
