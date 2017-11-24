@@ -1,0 +1,23 @@
+name: app_name
+version: 0.1.0
+description: Dart Create React App
+
+environment:
+  sdk: '>=1.23.0 <2.0.0'
+
+dependencies:
+  over_react: ^1.18.1
+  react: ^3.6.0
+
+dev_dependencies:
+  coverage: ^0.8.0
+  test: ^0.12.28
+  over_react_test: ^1.3.1
+  dart_dev: ^1.8.1
+  dart_style: ^1.0.8
+
+transformers:
+- over_react
+- $dart2js
+- test/pub_serve:
+    $include: test/**.dart

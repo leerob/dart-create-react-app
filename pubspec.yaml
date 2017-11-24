@@ -1,0 +1,17 @@
+name: dart_create_react_app
+description: Easily create React apps with Dart!
+version: 0.1.1
+homepage: https://github.com/leerob/dart-create-react-app
+author: Lee Robinson <lee.robinson@workiva.com>
+
+environment:
+  sdk: '>=1.23.0 <2.0.0'
+
+dependencies:
+  analyzer: ^0.27.6
+  colorize: ^0.1.2
+  test: ^0.12.28
+  path: ^1.4.0
+
+executables:
+  dart_create_react_app:

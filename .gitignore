@@ -1,0 +1,7 @@
+.packages
+.pub
+packages
+pubspec.lock
+build/
+.idea/
+.vscode/
