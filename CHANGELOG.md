@@ -1,3 +1,9 @@
+## 0.3.0
+- Move all /bin code to /lib
+- Create new logger class for stdout and stderr
+- More unit test coverage
+- Run unit tests in travis.yml
+
 ## 0.2.0
 - Added .travis.yml and badges to README
 

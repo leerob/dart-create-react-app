@@ -1,1 +1,7 @@
 language: dart
+dist: precise
+dart:
+  - 1.24.2
+
+script:
+  - pub run test

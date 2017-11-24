@@ -9,14 +9,16 @@ import 'package:path/path.dart' as path;
 
 class DartCreateReactApp {
   List<String> args;
-  int exitCode;
-
+  Directory dir;
   String appName;
   String appPath = path.current;
+  final Logger logger;
 
-  DartCreateReactApp(this.args);
+  DartCreateReactApp(this.logger);
 
-  Future run() async {
+  Future run(List<String> args, Directory dir) async {
+    this.args = args;
+    this.dir = dir;
     checkForValidUsage();
     checkForValidName();
     displayStartMessage();
@@ -27,13 +29,11 @@ class DartCreateReactApp {
 
   void checkForValidUsage() {
     if (args.length != 1 || args.single == '-h' || args.single == '--help') {
-      print('');
-      color('Dart Create React App', front: Styles.LIGHT_CYAN);
-      print('Easily create React apps with Dart!');
-      print('');
-      print('Usage: dart_create_react_app <app_name>');
-      print('');
-
+      logger.stderr('');
+      logger.stderr('Dart Create React App', textColor: Styles.LIGHT_CYAN);
+      logger.stderr('');
+      logger.stderr('Usage: dart_create_react_app <app_name>');
+      logger.stderr('');
       throw new ArgumentError('No application name provided.');
     } else {
       appName = args.single;
@@ -46,30 +46,26 @@ class DartCreateReactApp {
     RegExp exp = new RegExp('($nonNumericStart)($alphaNumericLower)');
 
     if (!exp.hasMatch(appName)) {
-      print('');
-      color('Error! The app name is formatted incorrectly.', front: Styles.RED);
-      print('');
-      print('The name should be all lowercase, with underscores to separate words, just_like_this.');
-      print('Use only basic Latin letters and Arabic digits: [a-z0-9_].');
-      print('Make sure it doesn’t start with digits and isn’t a reserved word.');
-
-      throw new ArgumentError();
+      logger.stderr('');
+      logger.stderr('Error! The app name is formatted incorrectly.', textColor: Styles.RED);
+      logger.stderr('');
+      logger.stderr('The name should be all lowercase, with underscores to separate words, just_like_this.');
+      logger.stderr('Use only basic Latin letters and Arabic digits: [a-z0-9_].');
+      logger.stderr('Make sure it doesn’t start with digits and isn’t a reserved word.');
+      throw new ArgumentError('Invalid application name.');
     }
   }
 
   void displayStartMessage() {
     Colorize currentPath = new Colorize(appPath);
-    print('');
-    print('Creating a new React app in ${currentPath.green()}.');
-    print('');
-    print('Installing packages. This might take a couple of minutes.');
+    logger.stdout('');
+    logger.stdout('Creating a new React app in ${currentPath.green()}.');
+    logger.stdout('');
+    logger.stdout('Installing packages. This might take a couple of minutes.');
   }
 
   Future copyTemplateFiles() async {
-    // Might need to remove / before lib here
-    final String templatePath = '$appPath/$appName/lib/template';
-    var templateDir = new Directory(templatePath).list(recursive: true, followLinks: false);
-    await for (var file in templateDir) {
+    await for (var file in dir.list(recursive: true, followLinks: false)) {
       if (file.path.contains('.pub') ||
           file.path.contains('.packages') ||
           file.path.contains('pubspec.lock') ||
@@ -104,13 +100,13 @@ class DartCreateReactApp {
           .transform(UTF8.decoder)
           .transform(new LineSplitter())
           .listen((data) {
-        print(data);
+        logger.stdout(data);
       }, onDone: _outc.complete);
       process.stderr
           .transform(UTF8.decoder)
           .transform(new LineSplitter())
           .listen((data) {
-        print(data);
+        logger.stderr(data);
       }, onDone: _errc.complete);
       Future.wait([_outc.future, _errc.future]).then((_) => _donec.complete());
     });
@@ -119,27 +115,44 @@ class DartCreateReactApp {
   }
 
   void displayEndMessage() {
-    print('');
-    print('Success! Created $appName at $appPath');
-    print('Inside that directory, you can run several commands:');
-    print('');
-    color('  pub serve', front: Styles.LIGHT_CYAN);
-    print('    Starts the development server.');
-    print('');
-    color('  pub build', front: Styles.LIGHT_CYAN);
-    print('    Bundles the app into static files for production.');
-    print('');
-    color('  pub run dart_dev test', front: Styles.LIGHT_CYAN);
-    print('    Starts the test runner.');
-    print('');
-    color('  pub run dart_dev format', front: Styles.LIGHT_CYAN);
-    print('    Formats the entire codebase.');
-    print('');
-    print('We suggest that you begin by typing:');
-    print('');
-    print('  cd $appName');
-    color('  pub serve', front: Styles.LIGHT_CYAN);
-    print('');
-    print('Happy hacking!');
+    logger.stdout('');
+    logger.stdout('Success! Created $appName at $appPath');
+    logger.stdout('Inside that directory, you can run several commands:');
+    logger.stdout('');
+    logger.stdout('  pub serve', textColor: Styles.LIGHT_CYAN);
+    logger.stdout('    Starts the development server.');
+    logger.stdout('');
+    logger.stdout('  pub build', textColor: Styles.LIGHT_CYAN);
+    logger.stdout('    Bundles the app into static files for production.');
+    logger.stdout('');
+    logger.stdout('  pub run dart_dev test', textColor: Styles.LIGHT_CYAN);
+    logger.stdout('    Starts the test runner.');
+    logger.stdout('');
+    logger.stdout('  pub run dart_dev format', textColor: Styles.LIGHT_CYAN);
+    logger.stdout('    Formats the entire codebase.');
+    logger.stdout('');
+    logger.stdout('We suggest that you begin by typing:');
+    logger.stdout('');
+    logger.stdout('  cd $appName');
+    logger.stdout('  pub serve', textColor: Styles.LIGHT_CYAN);
+    logger.stdout('');
+    logger.stdout('Happy hacking!');
+  }
+}
+
+class Logger {
+  void stdout(String message, {String textColor}) {
+    if (textColor != null) {
+      color(message, front: textColor);
+    } else {
+      print(message);
+    }
+  }
+  void stderr(String message, {String textColor}) {
+    if (textColor != null) {
+      color(message, front: textColor);
+    } else {
+      print(message);
+    }
   }
 }
