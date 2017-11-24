@@ -1,3 +1,6 @@
+## 0.3.2
+- Remove coverage for now
+
 ## 0.3.1
 - Got all unit tests working
 - Added coverage badge
