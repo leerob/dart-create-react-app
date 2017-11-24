@@ -1,4 +1,7 @@
 # Dart Create React App
+[![Pub](https://img.shields.io/pub/v/dart_create_react_app.svg)](https://pub.dartlang.org/packages/dart_create_react_app)
+[![Build Status](https://travis-ci.org/leerob/dart-create-react-app.svg)](https://travis-ci.org/leerob/dart-create-react-app)
+[![Strong Mode Compliant](https://img.shields.io/badge/strong_mode-on-brightgreen.svg)](https://github.com/leerob/dart-create-react-app/blob/master/analysis_options.yaml#L2)
 
 Create Dart + React apps with no build configuration.
 
