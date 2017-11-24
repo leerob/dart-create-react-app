@@ -13,7 +13,7 @@ void main() {
     setUp(() {
       logger = new LoggerMock();
       app = new DartCreateReactApp(logger);
-      dir = new Directory('test');
+      dir = new Directory('lib/template/');
     });
 
     void _expectOk([_]) {
@@ -43,8 +43,13 @@ void main() {
     });
 
     test('copies template files successfully', () {
-      return app.run(['my_app'], dir).then(_expectOk);
-    }, skip: 'not working yet');
+      return app.run(['my_app'], dir).then((_) {
+        _expectOk();
+        Directory dir = new Directory('my_app');
+        expect(dir.existsSync(), true);
+        dir.deleteSync(recursive: true);
+      });
+    });
   });
 }
 

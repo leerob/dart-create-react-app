@@ -1,3 +1,7 @@
+## 0.3.1
+- Got all unit tests working
+- Added coverage badge
+
 ## 0.3.0
 - Move all /bin code to /lib
 - Create new logger class for stdout and stderr

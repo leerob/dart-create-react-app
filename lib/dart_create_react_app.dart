@@ -73,11 +73,12 @@ class DartCreateReactApp {
         continue;
       }
 
-      List<String> segments = file.uri.pathSegments.toList();
-      segments.removeRange(0, 6);
-      Uri newUri = file.uri.replace(scheme: "file", pathSegments: segments);
-      String newPath = newUri.path.replaceAll('app_name', appName);
+      String filePath = file.uri.toFilePath();
+      if (filePath.contains('template')) {
+        filePath = filePath.substring(filePath.indexOf('template') + 'template'.length);
+      }
 
+      String newPath = filePath.replaceAll('app_name', appName);
       if (newPath.endsWith('/')) {
         await new Directory('$appName$newPath').create(recursive: true);
       } else if (file is File) {
