@@ -79,6 +79,7 @@ class DartCreateReactApp {
       }
 
       String newPath = filePath.replaceAll('app_name', appName);
+      print(newPath);
       if (newPath.endsWith('/')) {
         await new Directory('$appName$newPath').create(recursive: true);
       } else if (file is File) {
