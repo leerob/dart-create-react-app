@@ -104,9 +104,7 @@ class DartCreateReactApp {
   /// Any instances of `app_name` in files or paths will be replaced with the 
   /// given appName.
   Future copyTemplateFiles() async {
-    print('copying template files');
-    print(Directory.current.path);
-    await for (var file in dir.list(recursive: true, followLinks: false)) {
+    await for (var file in dir.list(recursive: true)) {
       if (file.path.contains('.pub') ||
           file.path.contains('.packages') ||
           file.path.contains('pubspec.lock') ||
@@ -115,22 +113,16 @@ class DartCreateReactApp {
       }
 
       String filePath = file.uri.toFilePath();
-      print(filePath);
       if (filePath.contains('template')) {
-        print('has template');
         filePath = filePath.substring(filePath.indexOf('template') + 'template'.length);
       }
-
-      String newPath = filePath.replaceAll('app_name', appName);
-      print(newPath);
-      if (newPath.endsWith('/')) {
-        print('Make dir $appName$newPath');
-        await new Directory('$appName$newPath').create(recursive: true);
-      } else if (file is File) {
-        print('Make file $appName$newPath');
-        var newFile = new File('$appName$newPath');
+ 
+      if (file is File) {
+        String newPath = filePath.replaceAll('app_name', appName);
+        File newFile = new File('$appName$newPath');
         String contents = await file.readAsString();
         contents = contents.replaceAll('app_name', appName);
+        newFile.createSync(recursive: true);
         newFile.writeAsStringSync(contents);
       }
     }

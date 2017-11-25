@@ -48,11 +48,6 @@ void main() {
         _expectOk();
         expect(newDir.existsSync(), true);
         newDir.deleteSync(recursive: true);
-      }).catchError((e) {
-        print('Errored out');
-        print(Directory.current.path);
-        print(dir.path);
-        print(newDir.path);
       });
     });
   });
