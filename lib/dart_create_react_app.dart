@@ -1,12 +1,5 @@
 library dart_create_react_app;
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:colorize/colorize.dart';
-import 'package:path/path.dart' as path;
-
 /// Dart Create React App allows you to easily set up React apps with Dart.
 ///
 /// It is a simple command-line application that takes in an app
@@ -24,6 +17,13 @@ import 'package:path/path.dart' as path;
 /// ```sh
 /// $ dart_create_react_app my_app
 /// ```
+import 'dart:async';
+import 'dart:convert' show UTF8, LineSplitter;
+import 'dart:io';
+
+import 'package:colorize/colorize.dart';
+import 'package:path/path.dart' as path;
+
 class DartCreateReactApp {
   List<String> args;
   Directory dir;
