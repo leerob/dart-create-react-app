@@ -43,13 +43,18 @@ void main() {
     });
 
     test('copies template files successfully', () {
+      Directory newDir = new Directory('my_app');
       return app.run(['my_app'], dir).then((_) {
         _expectOk();
-        Directory dir = new Directory('my_app');
-        expect(dir.existsSync(), true);
-        dir.deleteSync(recursive: true);
+        expect(newDir.existsSync(), true);
+        newDir.deleteSync(recursive: true);
+      }).catchError((e) {
+        print('Errored out');
+        print(Directory.current.path);
+        print(dir.path);
+        print(newDir.path);
       });
-    }, skip: 'Not working on Travis, but works locally');
+    });
   });
 }
 
