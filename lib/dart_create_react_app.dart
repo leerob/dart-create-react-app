@@ -1,8 +1,8 @@
 library dart_create_react_app;
 
-import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:colorize/colorize.dart';
 import 'package:path/path.dart' as path;

@@ -34,8 +34,16 @@ void main() {
       });
     });
 
-    test('invalid application name', () {
+    test('invalid application name with hypen', () {
       return app.run(['bad-name'], dir).catchError((e) {
+        _expectError();
+        expect(e is ArgumentError, true);
+        expect(e.message, contains('Invalid application name.'));
+      });
+    });
+
+    test('invalid application name starts with numbers', () {
+      return app.run(['123_name'], dir).catchError((e) {
         _expectError();
         expect(e is ArgumentError, true);
         expect(e.message, contains('Invalid application name.'));
@@ -47,6 +55,7 @@ void main() {
       return app.run(['my_app'], dir).then((_) {
         _expectOk();
         expect(newDir.existsSync(), true);
+        expect(logger.getStdout(), contains('Success!'));
         newDir.deleteSync(recursive: true);
       });
     });

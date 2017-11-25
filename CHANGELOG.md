@@ -1,3 +1,7 @@
+## 1.0.0 🎉
+- Got all unit tests working on travis
+- Added a test for name that starts with numbers
+
 ## 0.4.0
 - Added documentation
 - Small code cleanup
