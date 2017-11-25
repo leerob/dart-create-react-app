@@ -1,3 +1,8 @@
+## 0.4.0
+- Added documentation
+- Small code cleanup
+- Fixed typos in README
+
 ## 0.3.2
 - Remove coverage for now
 

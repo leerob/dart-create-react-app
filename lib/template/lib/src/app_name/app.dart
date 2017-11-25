@@ -1,5 +1,8 @@
 import 'package:over_react/over_react.dart';
 
+/// [App] is an over_react component.
+/// 
+/// See: https://pub.dartlang.org/packages/over_react
 @Factory()
 UiFactory<AppProps> App;
 

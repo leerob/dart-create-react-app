@@ -14,7 +14,7 @@ Create Dart + React apps with no build configuration.
 pub global activate dart_create_react_app
 export PATH=$PATH:~/.pub-cache/bin
 
-dart-create-react-app my_app
+dart_create_react_app my_app
 cd my_app/
 pub serve
 ```
@@ -23,7 +23,7 @@ Then open [http://localhost:8080/](http://localhost:8080/) to see your app.
 
 When you’re ready to deploy to production, create a minified bundle with `pub build`.
 
-<img src='https://i.imgur.com/abWXNKu.gif' width='600' alt='dart-create-react-app'>
+<img src='https://i.imgur.com/abWXNKu.gif' width='600' alt='dart_create_react_app'>
 
 ### Get Started Immediately
 
@@ -42,7 +42,7 @@ $ brew tap dart-lang/dart
 $ brew install dart --with-content-shell --with-dartium
 ```
 
-Then, you can install dart-create-react-app globally.
+Then, you can install dart_create_react_app globally.
 
 ```sh
 pub global activate dart_create_react_app
@@ -55,7 +55,7 @@ export PATH=$PATH:~/.pub-cache/bin
 To create a new app, run:
 
 ```sh
-dart-create-react-app my_app
+dart_create_react_app my_app
 cd my_app/
 ```
 
